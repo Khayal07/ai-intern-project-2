@@ -27,9 +27,21 @@ cp .env.example .env
 
 ## İşə salmaq
 
+**CLI (bütün pipeline-ı addım-addım göstərir):**
+
 ```bash
 python main.py
 ```
+
+**Streamlit demo (brauzerdə canlı sual-cavab):**
+
+```bash
+streamlit run app.py
+```
+
+Demo `http://localhost:8501` ünvanında açılır. Sual yazıb "Soruş"a basın —
+cavab və istifadə olunan mənbələr görünəcək. Vektor bazası `@st.cache_resource` ilə
+bir dəfə qurulur, ona görə sonrakı suallar sürətlidir.
 
 ## Layihənin quruluşu
 
@@ -42,6 +54,7 @@ python main.py
 │   ├── vectorstore.py       # Chroma saxlama + oxşarlıq axtarışı
 │   ├── prompt.py            # prompt qurulması (kontekst/təlimat ayrımı)
 │   └── rag.py               # retrieval → prompt → LLM axını
+├── app.py                   # Streamlit canlı demo
 ├── main.py                  # CLI giriş nöqtəsi
 ├── requirements.txt
 └── .env.example

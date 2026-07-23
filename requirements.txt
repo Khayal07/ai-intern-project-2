@@ -11,3 +11,6 @@ langchain-openai>=0.2.0
 # Checkpoint 3 — vektor saxlama + oxşarlıq axtarışı
 langchain-chroma>=0.1.4
 chromadb>=0.5.0
+
+# Streamlit demo (istəyə bağlı canlı interfeys)
+streamlit>=1.30.0
