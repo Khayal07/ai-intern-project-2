@@ -10,6 +10,7 @@ import sys
 
 from src.embeddings import embed_chunks
 from src.ingestion import chunk_documents, load_documents
+from src.rag import answer_question
 from src.vectorstore import build_vectorstore, similarity_search
 
 # Windows-un standart konsolu (cp1252) Azərbaycan hərflərini çap edə bilmir.
@@ -61,6 +62,12 @@ def main() -> None:
         preview = document.page_content.replace("\n", " ")[:120]
         print(f"\n[chunk {index}] məsafə={score:.4f}")
         print(f"  {preview}...")
+
+    # --- Checkpoint 4: retrieval + prompt + LLM cavabı ---
+    print("\n\n=== Checkpoint 4: Retrieval + prompt qurulması ===\n")
+    answer, _used_chunks = answer_question(store, query)
+    print(f"Sual: {query}")
+    print(f"\nCavab:\n{answer}")
 
 
 if __name__ == "__main__":

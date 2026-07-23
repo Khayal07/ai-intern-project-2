@@ -39,7 +39,9 @@ python main.py
 │   ├── config.py            # sabitlər (chunk ölçüsü, overlap, model, açar)
 │   ├── ingestion.py         # sənəd yükləmə + chunking
 │   ├── embeddings.py        # chunk-lar üçün embedding generasiyası
-│   └── vectorstore.py       # Chroma saxlama + oxşarlıq axtarışı
+│   ├── vectorstore.py       # Chroma saxlama + oxşarlıq axtarışı
+│   ├── prompt.py            # prompt qurulması (kontekst/təlimat ayrımı)
+│   └── rag.py               # retrieval → prompt → LLM axını
 ├── main.py                  # CLI giriş nöqtəsi
 ├── requirements.txt
 └── .env.example
@@ -121,3 +123,23 @@ Sual: How many days do I have to request a refund?
 
 > Sual "refund" haqqındadır və sistem düzgün olaraq **Refund Policy** chunk-ını (chunk 2)
 > ən yaxın nəticə kimi qaytardı.
+
+### ✅ Checkpoint 4 — Retrieval + prompt qurulması
+
+- Tapılan chunk-lar **aydın kontekst/təlimat ayrımı** ilə prompt-a yığılır:
+  `SystemMessage` (təlimat) + `HumanMessage` (nömrələnmiş KONTEKST blokları + SUAL).
+- LLM (`gpt-4o-mini`, `temperature=0`) yalnız bu kontekstə əsaslanaraq cavab verir.
+- `temperature=0` — determinist, faktlara sadiq cavablar üçün (RAG-da yaradıcılıq yox, dəqiqlik istəyirik).
+
+**Nümunə çıxış:**
+
+```
+=== Checkpoint 4: Retrieval + prompt qurulması ===
+
+Sual: How many days do I have to request a refund?
+
+Cavab:
+You have forty-five calendar days to request a refund from the date of the original purchase.
+```
+
+> Cavab tamamilə sənəddəki mətnə əsaslanır — model heç nə uydurmur.
