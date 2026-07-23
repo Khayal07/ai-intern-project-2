@@ -1,0 +1,15 @@
+# Mühit dəyişənləri (real API açarı)
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Vektor bazası 
+chroma_db/
+
+*.png

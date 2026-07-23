@@ -1,0 +1,19 @@
+Nimbus Cloud Storage — Customer Handbook
+
+Overview
+Nimbus Cloud Storage is a file storage and backup service for small teams. It lets users upload files, share folders with teammates, and restore previous versions of a document. This handbook explains the most common questions our support team receives from customers.
+
+Plans and Pricing
+Nimbus offers three plans. The Free plan includes 5 gigabytes of storage and is limited to a single user. The Team plan includes 1 terabyte of shared storage and supports up to ten users. The Business plan includes 5 terabytes of storage, unlimited users, and priority support. Storage is measured across the whole workspace, not per user, so a Team workspace shares its 1 terabyte among all members.
+
+Refund Policy
+Nimbus wants customers to feel confident when they upgrade. If you are not satisfied with a paid plan, you may request a full refund. To be eligible, the refund request must be submitted within forty-five calendar days from the date of the original purchase. Requests made after this forty-five day window are reviewed case by case and are not guaranteed. Refunds are always returned to the original payment method and usually appear within five to seven business days.
+
+File Recovery
+Every paid plan keeps deleted files in a recovery bin for thirty days before they are permanently removed. During those thirty days a user with admin rights can restore any deleted file to its original folder. Free plan users have a recovery bin of only seven days.
+
+Security
+All files are encrypted both while stored on our servers and while being transferred over the network. Nimbus runs an independent security audit once every year, and the summary report is available to Business plan customers on request.
+
+Support Hours
+Standard support is available on weekdays from 9 in the morning to 6 in the evening. Business plan customers also receive weekend support and a dedicated account manager.

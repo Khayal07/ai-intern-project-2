@@ -1,0 +1,6 @@
+# Checkpoint 1 — sənəd ingestion + chunking
+langchain>=0.3.0
+langchain-community>=0.3.0
+langchain-text-splitters>=0.3.0
+pypdf>=4.0.0
+python-dotenv>=1.0.0
