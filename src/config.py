@@ -4,13 +4,26 @@ Bütün konfiqurasiyanı bir yerdə saxlamaq üçün ayrıca modul yaratdıq —
 belədə chunk ölçüsü kimi dəyərləri dəyişmək üçün bir neçə fayla baxmaq lazım gəlmir.
 """
 
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 # Layihənin kök qovluğu (bu fayldan iki səviyyə yuxarı: src/ -> layihə kökü).
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# .env faylını yükləyirik ki, OPENAI_API_KEY mühit dəyişəni kimi əlçatan olsun.
+load_dotenv(BASE_DIR / ".env")
+
 # Mənbə sənədlərinin saxlanıldığı qovluq.
 DATA_DIR = BASE_DIR / "data"
+
+# --- OpenAI parametrləri ---
+# API açarı koda YAZILMIR — yalnız .env faylından oxunur (təhlükəsizlik).
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+
+# Embedding modeli: mətni ~1536 ölçülü vektora çevirir. Ucuz və keyfiyyətlidir.
+EMBEDDING_MODEL = "text-embedding-3-small"
 
 # --- Chunking parametrləri ---
 # CHUNK_SIZE: hər chunk-ın təxmini maksimal simvol sayı.

@@ -8,6 +8,7 @@ Növbəti checkpoint-lərdə bu fayl embedding, saxlama və sual-cavab addımlar
 
 import sys
 
+from src.embeddings import embed_chunks
 from src.ingestion import chunk_documents, load_documents
 
 # Windows-un standart konsolu (cp1252) Azərbaycan hərflərini çap edə bilmir.
@@ -35,6 +36,14 @@ def main() -> None:
         preview = chunk.page_content.replace("\n", " ")
         print(f"\n[chunk {index}] ({len(chunk.page_content)} simvol)")
         print(preview)
+
+    # --- Checkpoint 2: embedding generasiyası ---
+    print("\n\n=== Checkpoint 2: Embedding generasiyası ===\n")
+    vectors = embed_chunks(chunks)
+    print(f"Generasiya olunan vektor sayı: {len(vectors)} (hər chunk üçün bir vektor)")
+    print(f"Hər vektorun ölçüsü (dimension): {len(vectors[0])}")
+    print("\nİlk chunk-ın vektorunun ilk 8 dəyəri (nümunə):")
+    print([round(value, 4) for value in vectors[0][:8]])
 
 
 if __name__ == "__main__":

@@ -36,8 +36,9 @@ python main.py
 ```
 ├── data/                    # mənbə sənədlər (məs. nimbus_handbook.txt)
 ├── src/
-│   ├── config.py            # sabitlər (chunk ölçüsü, overlap, qovluqlar)
-│   └── ingestion.py         # sənəd yükləmə + chunking
+│   ├── config.py            # sabitlər (chunk ölçüsü, overlap, model, açar)
+│   ├── ingestion.py         # sənəd yükləmə + chunking
+│   └── embeddings.py        # chunk-lar üçün embedding generasiyası
 ├── main.py                  # CLI giriş nöqtəsi
 ├── requirements.txt
 └── .env.example
@@ -69,4 +70,25 @@ Yaradılan chunk sayı: 5
 --- İlk 3 chunk (nümunə) ---
 [chunk 0] (319 simvol)
 Nimbus Cloud Storage — Customer Handbook ...
+```
+
+### ✅ Checkpoint 2 — Chunk-lar üçün embedding generasiyası
+
+- Hər chunk `OpenAIEmbeddings` (`text-embedding-3-small`) ilə **1536 ölçülü vektora** çevrilir.
+- **Embedding nədir?** Mətnin mənasını ədədlər massivi kimi ifadə etməkdir. Mənaca oxşar
+  mətnlərin vektorları vektor fəzasında bir-birinə yaxın olur.
+- **Niyə lazımdır?** Sonrakı oxşarlıq axtarışı üçün: sualı da vektora çevirib, ona ən yaxın
+  chunk vektorlarını tapırıq.
+- `embed_documents` bütün chunk-ları **bir sorğuda** (batch) göndərir — sürətli və ucuz.
+
+**Nümunə çıxış:**
+
+```
+=== Checkpoint 2: Embedding generasiyası ===
+
+Generasiya olunan vektor sayı: 5 (hər chunk üçün bir vektor)
+Hər vektorun ölçüsü (dimension): 1536
+
+İlk chunk-ın vektorunun ilk 8 dəyəri (nümunə):
+[0.0031, 0.0374, 0.0208, -0.0159, 0.0098, -0.0427, -0.013, 0.0222]
 ```
