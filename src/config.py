@@ -25,6 +25,15 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 # Embedding modeli: mətni ~1536 ölçülü vektora çevirir. Ucuz və keyfiyyətlidir.
 EMBEDDING_MODEL = "text-embedding-3-small"
 
+# --- Vektor bazası (Chroma) parametrləri ---
+# Chroma verilənləri bu qovluqda diskdə saxlayır (persistent) — proqram bağlansa da qalır.
+CHROMA_DIR = BASE_DIR / "chroma_db"
+# Kolleksiya = vektorların saxlanıldığı "cədvəl"in adı.
+COLLECTION_NAME = "nimbus_docs"
+
+# Oxşarlıq axtarışında qaytarılacaq ən yaxın chunk sayı (top-k).
+TOP_K = 3
+
 # --- Chunking parametrləri ---
 # CHUNK_SIZE: hər chunk-ın təxmini maksimal simvol sayı.
 # CHUNK_OVERLAP: qonşu chunk-ların bir-biri ilə üst-üstə düşən hissəsi.

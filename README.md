@@ -38,7 +38,8 @@ python main.py
 ├── src/
 │   ├── config.py            # sabitlər (chunk ölçüsü, overlap, model, açar)
 │   ├── ingestion.py         # sənəd yükləmə + chunking
-│   └── embeddings.py        # chunk-lar üçün embedding generasiyası
+│   ├── embeddings.py        # chunk-lar üçün embedding generasiyası
+│   └── vectorstore.py       # Chroma saxlama + oxşarlıq axtarışı
 ├── main.py                  # CLI giriş nöqtəsi
 ├── requirements.txt
 └── .env.example
@@ -92,3 +93,31 @@ Hər vektorun ölçüsü (dimension): 1536
 İlk chunk-ın vektorunun ilk 8 dəyəri (nümunə):
 [0.0031, 0.0374, 0.0208, -0.0159, 0.0098, -0.0427, -0.013, 0.0222]
 ```
+
+### ✅ Checkpoint 3 — Vektor saxlama + oxşarlıq axtarışı
+
+- Chunk-lar embedding-ləri və metadata-sı ilə birlikdə **Chroma** vektor bazasında
+  (diskdə, `chroma_db/` qovluğunda) saxlanılır.
+- `similarity_search` sualı vektora çevirib, vektor fəzasında ən yaxın chunk-ları tapır.
+- Nəticə **məsafə (distance)** balı ilə qayıdır: **bal nə qədər kiçikdirsə, chunk suala
+  bir o qədər oxşardır**.
+- Metadata (mənbə fayl, `chunk_index`) saxlanılır — Checkpoint 5-də mənbə istinadı üçün lazımdır.
+
+**Nümunə çıxış:**
+
+```
+=== Checkpoint 3: Vektor saxlama + oxşarlıq axtarışı ===
+
+Chroma kolleksiyasına saxlanan chunk sayı: 5
+
+Sual: How many days do I have to request a refund?
+
+Ən oxşar 3 chunk (bal kiçikdirsə = daha oxşar):
+[chunk 2] məsafə=1.0377
+  Refund Policy Nimbus wants customers to feel confident when they upgrade...
+[chunk 3] məsafə=1.3944
+  File Recovery Every paid plan keeps deleted files...
+```
+
+> Sual "refund" haqqındadır və sistem düzgün olaraq **Refund Policy** chunk-ını (chunk 2)
+> ən yaxın nəticə kimi qaytardı.
