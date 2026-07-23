@@ -12,6 +12,9 @@ Nimbus wants customers to feel confident when they upgrade. If you are not satis
 File Recovery
 Every paid plan keeps deleted files in a recovery bin for thirty days before they are permanently removed. During those thirty days a user with admin rights can restore any deleted file to its original folder. Free plan users have a recovery bin of only seven days.
 
+Account Deletion
+When a workspace owner deletes their Nimbus account, the process happens in two separate stages that customers should understand clearly before they proceed. In the first stage, the account is immediately deactivated and every team member instantly loses access to all shared folders, although none of the underlying files are actually erased during this initial waiting period. In the second stage, which begins exactly thirty days after the moment of deactivation, every file, folder, and backup that belongs to the workspace is permanently and irreversibly erased from all Nimbus servers, and this final deletion cannot be reversed or undone by the support team under any circumstances whatsoever.
+
 Security
 All files are encrypted both while stored on our servers and while being transferred over the network. Nimbus runs an independent security audit once every year, and the summary report is available to Business plan customers on request.
 

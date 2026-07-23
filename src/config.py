@@ -37,6 +37,16 @@ COLLECTION_NAME = "nimbus_docs"
 # Oxşarlıq axtarışında qaytarılacaq ən yaxın chunk sayı (top-k).
 TOP_K = 3
 
+# --- "Sənədlərdə yoxdur" halının idarəsi (Checkpoint 6) ---
+# Kontekstdə cavab olmadıqda LLM-in qaytaracağı standart cümlə.
+NOT_FOUND_MESSAGE = (
+    "I could not find information about this in the provided documents."
+)
+# Guard həddi: ən yaxın chunk-ın məsafəsi bu dəyərdən böyükdürsə, sualı sənədlərlə
+# əlaqəsiz sayırıq və LLM-ə müraciət etmədən NOT_FOUND_MESSAGE qaytarırıq.
+# (Dəyər empirik seçilir — aşağıda main.py testlərində müşahidə olunan məsafələrə əsasən.)
+DISTANCE_THRESHOLD = 1.8
+
 # --- Chunking parametrləri ---
 # CHUNK_SIZE: hər chunk-ın təxmini maksimal simvol sayı.
 # CHUNK_OVERLAP: qonşu chunk-ların bir-biri ilə üst-üstə düşən hissəsi.

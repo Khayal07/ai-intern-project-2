@@ -12,7 +12,13 @@ from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain_openai import ChatOpenAI
 
-from src.config import LLM_MODEL, OPENAI_API_KEY, TOP_K
+from src.config import (
+    DISTANCE_THRESHOLD,
+    LLM_MODEL,
+    NOT_FOUND_MESSAGE,
+    OPENAI_API_KEY,
+    TOP_K,
+)
 from src.prompt import build_prompt
 from src.vectorstore import similarity_search
 
@@ -43,6 +49,13 @@ def answer_question(
     ki, Checkpoint 5-də mənbə istinadını göstərə bilək.
     """
     results = similarity_search(store, query, k=k)
+
+    # --- Guard (Checkpoint 6): ən yaxın chunk belə çox uzaqdırsa, sual sənədlərlə
+    # əlaqəsizdir. LLM-ə heç müraciət etmədən "məlumat yoxdur" qaytarırıq.
+    # Bu, həm hallüsinasiyanı, həm də lazımsız API xərcini azaldır.
+    if not results or results[0][1] > DISTANCE_THRESHOLD:
+        return NOT_FOUND_MESSAGE, results
+
     messages = build_prompt(query, results)
 
     llm = llm or get_llm()

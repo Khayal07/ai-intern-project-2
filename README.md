@@ -166,3 +166,43 @@ Mənbələr:
 - nimbus_handbook.txt (chunk 3, məsafə=1.3942)
 - nimbus_handbook.txt (chunk 4, məsafə=1.6703)
 ```
+
+### ✅ Checkpoint 6 — "Sənədlərdə yoxdur" halının idarəsi
+
+RAG-ın ən tanınmış uğursuzluğu **hallüsinasiya**dır: model kontekstdə cavab olmayanda
+uydurur. Buna qarşı **iki qat müdafiə** qurulub:
+
+1. **Prompt təlimatı (əsas müdafiə):** system mesajı modelə deyir ki, cavab KONTEKST-də
+   yoxdursa, heç nə uydurma və dəqiq bu cümləni qaytar:
+   `"I could not find information about this in the provided documents."`
+2. **Məsafə guard-ı (ikinci müdafiə):** ən yaxın chunk-ın məsafəsi həddi (`1.8`) keçirsə,
+   sual sənədlərlə açıq-aşkar əlaqəsizdir — LLM-ə müraciət etmədən dərhal "məlumat yoxdur"
+   qaytarılır (həm hallüsinasiya, həm lazımsız API xərci qarşısı).
+
+**Niyə tək guard kifayət deyil?** Aşağıdakı test göstərir ki, mövzuya yaxın (kiçik məsafəli)
+amma sənəddə olmayan sual guard-dan keçir — onu yalnız prompt tuta bilir.
+
+## Test nəticələri (iki əsas "tələ")
+
+### 1. Hallüsinasiya tələsi (əsas fokus)
+
+```
+Sual: Does Nimbus offer a mobile app for iPhone?   (mövzuya yaxın, məsafə=0.99, amma sənəddə YOX)
+Cavab: I could not find information about this in the provided documents.
+
+Sual: What is the capital of France?               (əlaqəsiz, məsafə=1.88 → guard tutur)
+Cavab: I could not find information about this in the provided documents.
+```
+
+Sistem hər iki halda **uydurmur** — dürüst şəkildə bilmədiyini deyir.
+
+### 2. Chunking tələsi (overlap)
+
+`nimbus_handbook.txt`-dəki uzun "Account Deletion" bölməsi bir neçə chunk-a bölünür.
+Overlap sərhəddəki cümləni bütöv saxladığı üçün fakt tam retrieval olunur:
+
+```
+Sual: What happens thirty days after a Nimbus account is deactivated?   (məsafə=0.69)
+Cavab: Thirty days after a Nimbus account is deactivated, every file, folder, and backup
+       ... is permanently and irreversibly erased from all Nimbus servers ...
+```

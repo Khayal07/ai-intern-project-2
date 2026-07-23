@@ -75,6 +75,15 @@ def main() -> None:
     print(f"\nCavab:\n{answer}")
     print(f"\nMənbələr:\n{format_sources(used_chunks)}")
 
+    # --- Checkpoint 6: "sənədlərdə yoxdur" halının idarəsi ---
+    print("\n\n=== Checkpoint 6: 'Sənədlərdə yoxdur' halının idarəsi ===\n")
+    # Bu sual mövzuya yaxındır (məsafə kiçik), amma cavab sənəddə YOXDUR —
+    # sistem uydurmamalı, dürüst şəkildə bilmədiyini deməlidir.
+    missing_query = "Does Nimbus offer a mobile app for iPhone?"
+    missing_answer, _ = answer_question(store, missing_query)
+    print(f"Sual: {missing_query}")
+    print(f"\nCavab:\n{missing_answer}")
+
 
 if __name__ == "__main__":
     main()

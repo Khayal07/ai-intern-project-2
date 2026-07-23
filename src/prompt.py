@@ -16,11 +16,17 @@ Niyə ayrım vacibdir?
 from langchain_core.documents import Document
 from langchain_core.messages import HumanMessage, SystemMessage
 
+from src.config import NOT_FOUND_MESSAGE
+
 # Model üçün əsas təlimat. Qısa, aydın və qəti olmalıdır.
+# Checkpoint 6: kontekstdə cavab yoxdursa, model uydurmamalı, dəqiq NOT_FOUND_MESSAGE-i
+# qaytarmalıdır. Bu, RAG-ın ən tanınmış uğursuzluğunun (hallüsinasiya) qarşısını alır.
 SYSTEM_INSTRUCTION = (
     "Sən sənədlərə əsaslanan sual-cavab köməkçisisən. "
     "Cavabı YALNIZ aşağıda verilən KONTEKST əsasında ver. "
-    "Kontekstdən kənar öz biliyindən istifadə etmə."
+    "Kontekstdən kənar öz biliyindən istifadə etmə. "
+    "Əgər cavab KONTEKST-də yoxdursa, heç nə uydurma və dəqiq bu cümləni qaytar: "
+    f"\"{NOT_FOUND_MESSAGE}\""
 )
 
 
