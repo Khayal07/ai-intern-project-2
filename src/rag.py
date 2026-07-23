@@ -6,6 +6,8 @@ Bu modul bütün hissələri birləşdirir:
   3) LLM-i çağırıb cavab alır.
 """
 
+import os
+
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain_openai import ChatOpenAI
@@ -47,3 +49,19 @@ def answer_question(
     response = llm.invoke(messages)
 
     return response.content, results
+
+
+def format_sources(results: list[tuple[Document, float]]) -> str:
+    """Cavabda istifadə olunan chunk-ların mənbələrini oxunaqlı siyahıya çevirir.
+
+    Mənbələri LLM-dən yox, retrieval metadata-sından götürürük — belədə istinad
+    100% dəqiqdir (LLM istinadı da uydura bilər). Hər sətir: fayl adı + chunk indeksi
+    + oxşarlıq məsafəsi.
+    """
+    lines = []
+    for document, score in results:
+        source_path = document.metadata.get("source", "?")
+        source_name = os.path.basename(source_path)
+        chunk_index = document.metadata.get("chunk_index", "?")
+        lines.append(f"- {source_name} (chunk {chunk_index}, məsafə={score:.4f})")
+    return "\n".join(lines)

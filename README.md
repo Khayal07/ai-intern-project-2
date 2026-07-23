@@ -143,3 +143,26 @@ You have forty-five calendar days to request a refund from the date of the origi
 ```
 
 > Cavab tamamilə sənəddəki mətnə əsaslanır — model heç nə uydurmur.
+
+### ✅ Checkpoint 5 — Mənbə istinadı ilə cavab
+
+- Hər cavabın altında istifadə olunan chunk-ların **mənbəsi** göstərilir:
+  `fayl adı + chunk indeksi + oxşarlıq məsafəsi`.
+- İstinadlar **retrieval metadata-sından** götürülür, LLM-dən yox — belədə istinad
+  100% dəqiqdir (LLM istinadı da uydura bilər).
+
+**Nümunə çıxış:**
+
+```
+=== Checkpoint 5: Mənbə istinadı ilə cavab ===
+
+Sual: How many days do I have to request a refund?
+
+Cavab:
+You have forty-five calendar days to request a refund from the date of the original purchase.
+
+Mənbələr:
+- nimbus_handbook.txt (chunk 2, məsafə=1.0377)
+- nimbus_handbook.txt (chunk 3, məsafə=1.3942)
+- nimbus_handbook.txt (chunk 4, məsafə=1.6703)
+```
